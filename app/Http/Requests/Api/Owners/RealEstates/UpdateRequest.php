@@ -3,9 +3,10 @@
 namespace App\Http\Requests\Api\Owners\RealStates;
 
 use App\Models\RealEstate;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateOwnerRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -44,5 +45,19 @@ class UpdateOwnerRequest extends FormRequest
     public function edit($id)
     {
         RealEstate::whereId($id)->update($this->all());
+        $realEstate =  RealEstate::find($id);
+
+        foreach ($this['images'] as $key => $image) {
+            DB::table('realestate_media')->insert([
+                'realestate_id' => $realEstate->id,
+                'image' => $image,
+            ]);
+        }
+        foreach ($this['price'] as $key => $price) {
+            DB::table('realestate_price')->insert([
+                'realestate_id' => $realEstate->id,
+                'price' => $price,
+            ]);
+        }
     }
 }

@@ -20,17 +20,28 @@ class RealEstate extends Model
 
     protected $fillable = [
         'owner_id', 'realestate_type_id',
-        'city_id', 'country_id',
-        'name', 'space',
+        'city_id', 'country_id', 'price',
+        'name', 'space', 'description',
         'room', 'wc',
         'guests', 'bed',
+        'leave_time', 'enter_time',
         'note', 'number_of_views',
         'status', 'lat',
         'lng', 'address',
+        'is_reserved',
+        'is_overnight',
     ];
     public function scopeActive($query)
     {
         return $query->where('status', true);
+    }
+    public function scopeReserved($query)
+    {
+        return $query->where('is_reserved', true);
+    }
+    public function scopeNotReserved($query)
+    {
+        return $query->where('is_reserved', false);
     }
     public function scopeMine($query)
     {

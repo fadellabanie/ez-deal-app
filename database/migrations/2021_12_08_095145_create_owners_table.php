@@ -24,11 +24,13 @@ class CreateOwnersTable extends Migration
             $table->string('password');
             $table->string('country_code');
             $table->string('mobile')->unique();
-            $table->string('gender');
+            $table->tinyInteger('gender');
+            $table->date('birthday');
+            $table->string('account_name')->nullable();
+            $table->string('account_number')->nullable();
             $table->date('birthday');
             $table->string('avatar')->nullable();
             $table->string('status')->nullable();
-            $table->boolean('is_dark')->default(false);
             $table->text('remember_token')->nullable();
             $table->text('device_token')->nullable();
             $table->date('block_date')->nullable()->comment('Block date until');

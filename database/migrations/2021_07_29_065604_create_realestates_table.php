@@ -20,6 +20,7 @@ class CreateRealestatesTable extends Migration
             $table->unsignedBigInteger('city_id')->index();
             $table->unsignedBigInteger('country_id')->default(1);
             $table->string('name');
+            $table->longText('description');
             $table->float('space');
             $table->tinyInteger('room');
             $table->tinyInteger('wc');
@@ -30,8 +31,12 @@ class CreateRealestatesTable extends Migration
             $table->string('address')->nullable();
             $table->string('image')->nullable();
             $table->longText('note')->nullable();
+            $table->boolean('is_overnight');
             $table->integer('number_of_views')->default(0);
             $table->float('rate')->default(0);
+            $table->time('enter_time')->nullable();
+            $table->time('leave_time')->nullable();
+            $table->boolean('is_reserved')->default(0);
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

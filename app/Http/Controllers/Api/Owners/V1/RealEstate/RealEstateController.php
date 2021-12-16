@@ -6,6 +6,7 @@ use App\Models\RealEstate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Owners\RealStates\StoreRequest;
+use App\Http\Requests\Api\Owners\RealStates\UpdateRequest;
 use App\Http\Resources\Owners\RealEstates\RealEstateCollection;
 use App\Http\Resources\Owners\RealEstates\RealEstateLargeResource;
 
@@ -16,9 +17,11 @@ class RealEstateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $realEstates = RealEstate::mine()->active()->orderByDesc('id')->paginate();
+        $realEstates = RealEstate::mine()
+            ->where('name', 'like', '%' . $request->search . '%')
+            ->active()->orderByDesc('id')->paginate();
 
         return new RealEstateCollection($realEstates);
     }
@@ -71,8 +74,12 @@ class RealEstateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(RealEstate $realEstate)
     {
-        //
+        // if no one rent 
+
+        $realEstate->delete();
+
+        return $this->successStatus(__("Deleted"));
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOwnerBanksTable extends Migration
+class CreateVideosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateOwnerBanksTable extends Migration
      */
     public function up()
     {
-        Schema::create('owner_banks', function (Blueprint $table) {
+        Schema::create('videos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('owner_id');
-            $table->string('iban');
-            $table->boolean('status');
+            $table->string('ar_day');
+            $table->string('en_day');
+            $table->text('url');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateOwnerBanksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('owner_banks');
+        Schema::dropIfExists('videos');
     }
 }

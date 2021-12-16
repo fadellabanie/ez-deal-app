@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OwnerBank extends Model
+class Reservations extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'owner_id', 'iban', 'status',
+        'realestate_id', 'from', 'to', 'status'
     ];
 
-    public function owner()
+    public function realEstate()
     {
-        return $this->belongsTo(Owner::class);
+        return $this->belongsTo(RealEstate::class);
     }
 }

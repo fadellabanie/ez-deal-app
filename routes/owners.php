@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Owners\v1\Auth\AuthController;
+use App\Http\Controllers\Api\Owners\V1\General\GeneralController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,13 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('verify', [AuthController::class, 'check']);
 Route::post('verify-change-password', [AuthController::class, 'verifyChangePassword']);
 Route::post('change-password', [AuthController::class, 'changePassword']);
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::apiResource('realEstates', RealEstateController::class);
+
+    Route::get('videos', [GeneralController::class, 'video']);
+    Route::post('update-profile', [GeneralController::class, 'updateProfile']);
+    Route::post('reservations', [GeneralController::class, 'reservations']);
+});

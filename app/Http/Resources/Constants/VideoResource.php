@@ -4,7 +4,7 @@ namespace App\Http\Resources\Constants;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ViewResource extends JsonResource
+class VideoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,6 +18,7 @@ class ViewResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'url' => $this->url,
         ];
     }
 }
