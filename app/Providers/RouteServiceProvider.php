@@ -49,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/customers.php'));
 
             Route::prefix('api/v1/owners')
-                ->middleware('api')
+               // ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/owners.php'));
 

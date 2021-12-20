@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Video;
+use App\Models\Attribute;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        Attribute::factory(10)->create();
+        Video::factory(20)->create();
     }
 }

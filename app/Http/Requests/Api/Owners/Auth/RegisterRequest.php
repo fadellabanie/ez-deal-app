@@ -34,8 +34,8 @@ class RegisterRequest extends APIRequest
             'country_code' =>  ['required'],
             'mobile' =>  ['required','unique:owners,mobile'],
             'password' => 'required|min:8|max:15',
-            'birthday' => 'required',
-            'gender' => 'required',
+           // 'birthday' => 'required',
+            //'gender' => 'required',
             'device_token' => 'required',
         ];
     }

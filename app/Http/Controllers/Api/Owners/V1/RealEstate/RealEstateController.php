@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\Owners\V1\RealEstate;
 use App\Models\RealEstate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Owners\RealStates\StoreRequest;
-use App\Http\Requests\Api\Owners\RealStates\UpdateRequest;
+use App\Http\Requests\Api\Owners\RealEstates\StoreRequest;
+use App\Http\Requests\Api\Owners\RealEstates\UpdateRequest;
 use App\Http\Resources\Owners\RealEstates\RealEstateCollection;
 use App\Http\Resources\Owners\RealEstates\RealEstateLargeResource;
 
@@ -19,9 +19,10 @@ class RealEstateController extends Controller
      */
     public function index(Request $request)
     {
-        $realEstates = RealEstate::mine()
-            ->where('name', 'like', '%' . $request->search . '%')
-            ->active()->orderByDesc('id')->paginate();
+        $realEstates = RealEstate::mine()->active()
+            ->where('ar_name', 'like', '%' . $request->search . '%')
+            ->orWhere('en_name', 'like', '%' . $request->search . '%')
+            ->orderByDesc('id')->paginate(RealEstate::PAGINATE);
 
         return new RealEstateCollection($realEstates);
     }

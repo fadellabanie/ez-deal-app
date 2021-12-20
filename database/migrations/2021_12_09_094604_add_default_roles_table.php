@@ -36,5 +36,7 @@ class AddDefaultRolesTable extends Migration
      */
     public function down()
     {
+        DB::table('roles')->truncate();
+
     }
 }

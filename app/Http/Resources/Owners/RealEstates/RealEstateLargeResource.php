@@ -16,40 +16,46 @@ class RealEstateLargeResource extends JsonResource
      */
     public function toArray($request)
     {
-        $real_estate_count = RealEstate::where('user_id',$this->user->id)->count();
         return [
             'id' => $this->id,
-            'user' => [
-               'username' => $this->user->name,
-               'mobile' => $this->user->mobile,
-               'avatar' => asset($this->user->avatar),
-               'real_estate_count' => $real_estate_count,
-            ],
             'name' => $this->name,
             'city' => $this->city->name,
             'country' => $this->country->name,
             'realestate_type_id' => $this->realestateType->name,
-            'contract_type_id' => $this->contractType->name,
             'price' => $this->price,
             'space' => $this->space,
-            'number_building' => $this->number_building,
-            'street_width' => $this->street_width,
-            'street_number' => $this->street_number,
-            'view' => $this->view->name,
-            'neighborhood' => $this->neighborhood->name ?? "",
-            'age_building' => $this->age_building,
-            'video_url' => $this->video_url,
-            'elevator' => (Boolean)$this->elevator,
-            'parking' => (Boolean)$this->parking,
-            'ac' => (Boolean)$this->ac,
-            'furniture' => (Boolean)$this->furniture,
             'note' => $this->note,
-            'species' => species($this->species) ?? "",
             'type' => $this->type,
-            'type_of_owner' => $this->type_of_owner,
-            'number_card' => $this->number_card,
             'lat' => $this->lat,
             'lng' => $this->lng,
+
+
+            'guest_count'=> $this->guest_count,
+            'is_sleep'=> (bool)$this->is_sleep,
+            'wc_count'=> $this->wc_count,
+            'wc_prepared'=>(bool) $this->wc_prepared,
+            'space'=> $this->space,
+            'description'=> $this->description,
+            
+            'guests'=> $this->guests,
+            'bed'=> $this->bad,
+            'leave_time'=> $this->leave_time,
+             'enter_time'=> $this->enter_time,
+            'note'=> $this->note,
+            'number_of_views'=> $this->number_of_views,
+            'status'=> $this->status,
+            
+            'living_room'=> $this->liveing_room,
+            'bed_room'=> $this->bed_room,
+            'large_bed_count'=> $this->large_bed_count,
+            'kitchen_count'=> $this->kitchen_count,
+            'smail_bed_count'=> $this->smail_bed_count,
+            'kitchen_prepared'=> (bool)$this->kitchen_prepared,
+            'image'=> asset($this->image),
+            'is_reserved'=> (bool)$this->is_reserved,
+            'is_overnight'=> (bool)$this->is_overnight,
+
+
             'address' => $this->address,
             'number_of_views' => $this->number_of_views,
             'created_at' => $this->created_at->format('Y-m-d'),

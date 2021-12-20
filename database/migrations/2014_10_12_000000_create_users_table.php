@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('role_id')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -34,7 +34,6 @@ class CreateUsersTable extends Migration
             'name' => 'fadellabanie',
             'mobile' => '011315200',
             'email' => 'admin@admin.com',
-            'role_id' => 1,
             'password' => Hash::make('12345678'),
             'created_at' => now(),
         ]);

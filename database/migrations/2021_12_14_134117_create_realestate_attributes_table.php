@@ -17,8 +17,6 @@ class CreateRealestateAttributesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('realestate_id')->index();
             $table->unsignedBigInteger('attribute_id');
-            $table->integer('number')->default(1);
-            $table->string('status')->default(true);
             $table->timestamps();
         });
     }

@@ -20,6 +20,8 @@ class GeneralController extends Controller
      */
     public function home()
     {
+       // dd(Auth::guard('owner')->id());
+        return now();
     }
     /**
      * Display a listing of the resource.

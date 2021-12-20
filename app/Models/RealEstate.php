@@ -2,38 +2,50 @@
 
 namespace App\Models;
 
+use App\Services\Translatable;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RealEstate extends Model
 {
     public $table = 'realestates';
 
-    use HasFactory;
+    use HasFactory,Translatable;
 
+    const PAGINATE = 25;
     const SELL = 1;
     const RENT = 2;
     const INVESTMENT = 3;
-
+    protected $translatedAttributes = [
+        'name'
+    ];
     protected $fillable = [
         'owner_id', 'realestate_type_id',
         'city_id', 'country_id', 'price',
-        'name', 'space', 'description',
+        'ar_name', 'en_name','guest_count','is_sleep','wc_count','wc_prepared','space', 'description',
         'room', 'wc',
         'guests', 'bed',
         'leave_time', 'enter_time',
         'note', 'number_of_views',
         'status', 'lat',
         'lng', 'address',
+        'living_room',
+        'bed_room',
+        'large_bed_count',
+        'kitchen_count',
+        'smail_bed_count',
+        'kitchen_prepared',
+        'image',
         'is_reserved',
         'is_overnight',
     ];
+    
     public function scopeActive($query)
     {
-        return $query->where('status', true);
+        return $query->where('is_active', true);
     }
     public function scopeReserved($query)
     {
@@ -45,7 +57,7 @@ class RealEstate extends Model
     }
     public function scopeMine($query)
     {
-        return $query->where('owner_id', Auth::id());
+        return $query->where('owner_id', Auth::guard('owner')->id());
     }
     public function city()
     {
@@ -70,7 +82,7 @@ class RealEstate extends Model
     public function attributes()
     {
         return $this->belongsToMany(Attribute::class, 'realestate_attributes', 'realestate_id', 'attribute_id')
-            ->withPivot('number', 'status')
+           // ->withPivot('number', 'status')
             ->withTimestamps();
     }
     public function days()

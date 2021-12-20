@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class RealEstateCollection extends ResourceCollection
 {
 
-    public $collects = RealEstateTinyResource::class;
+    public $collects = RealEstateLargeResource::class;
 
     /**
      * Transform the resource into an array.

@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Riyadh',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,8 +93,15 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ar',
+    
+     /*
+    |--------------------------------------------------------------------------
+    | Application supported languages
+    |--------------------------------------------------------------------------
+    */
 
+    'supported_languages' => ['en' => 'English', 'ar' => 'Arabic'],
     /*
     |--------------------------------------------------------------------------
     | Faker Locale
@@ -105,6 +112,7 @@ return [
     | localized telephone numbers, street address information and more.
     |
     */
+
 
     'faker_locale' => 'en_US',
 

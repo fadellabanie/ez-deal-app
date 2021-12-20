@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Api\Owners\RealStates;
+namespace App\Http\Requests\Api\Owners\RealEstates;
 
 use App\Models\RealEstate;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Api\APIRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class UpdateRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
