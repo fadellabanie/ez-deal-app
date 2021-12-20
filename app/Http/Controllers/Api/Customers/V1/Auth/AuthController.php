@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Customers\v1\Auth;
+namespace App\Http\Controllers\Api\Customers\V1\Auth;
 
 use Carbon\Carbon;
 use App\Models\Verify;

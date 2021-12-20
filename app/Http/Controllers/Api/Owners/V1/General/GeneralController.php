@@ -47,25 +47,5 @@ class GeneralController extends Controller
 
         return $this->successStatus(__('update successfully'));
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function reservations(Request $request)
-    {
-        Reservations::create([
-            'realestate_id' => $request->realestate_id,
-            'from' => $request->from,
-            'to' => $request->to,
-            'status' => 'reserve',
-        ]);
-
-        RealEstate::whereId($request->realestate_id)->update([
-            'is_reserved' => true
-        ]);
-
-        return $this->successStatus(__('reservations successfully'));
-    }
+    
 }

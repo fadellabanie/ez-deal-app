@@ -19,10 +19,11 @@ class CreateRealestatesTable extends Migration
             $table->unsignedBigInteger('realestate_type_id')->index();
             $table->unsignedBigInteger('city_id')->index();
             $table->unsignedBigInteger('country_id')->default(1);
+            $table->string('code');
             $table->string('ar_name');
             $table->string('en_name');
             $table->float('space');
-            $table->unsignedBigInteger('guest_type')->default(1);
+            $table->string('guest_type');
             $table->integer('guest_count');
             $table->boolean('is_sleep');
             $table->tinyInteger('wc_count');

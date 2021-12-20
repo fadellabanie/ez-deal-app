@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Owners\v1\Auth;
+namespace App\Http\Controllers\Api\Owners\V1\Auth;
 
 use Carbon\Carbon;
 use App\Models\Owner;

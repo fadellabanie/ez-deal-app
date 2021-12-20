@@ -25,8 +25,6 @@ class OwnerFactory extends Factory
             'password' => Hash::make(12345678),
             'country_code' => $this->faker->countryCode,
             'mobile' => '0115265' . $this->faker->numerify('#####'),
-            'gender' => 1,
-            'birthday' => now(),
             'avatar' => $this->faker->imageUrl(),
             'status' => true,
             'account_number' => $this->faker->name,

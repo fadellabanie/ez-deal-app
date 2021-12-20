@@ -19,9 +19,13 @@ class RealEstateController extends Controller
      */
     public function index(Request $request)
     {
-        $realEstates = RealEstate::mine()->active()
-            ->where('ar_name', 'like', '%' . $request->search . '%')
-            ->orWhere('en_name', 'like', '%' . $request->search . '%')
+        $realEstates = RealEstate::with([
+            'city', 'country', 'realestateType', 'medias', 'attributes', 'prices'
+        ])->mine()->active()
+            ->where(function ($q) use ($request) {
+                $q->where('ar_name', 'like', '%' . $request->search . '%');
+                $q->orWhere('en_name', 'like', '%' . $request->search . '%');
+            })
             ->orderByDesc('id')->paginate(RealEstate::PAGINATE);
 
         return new RealEstateCollection($realEstates);
@@ -48,9 +52,9 @@ class RealEstateController extends Controller
      */
     public function show($id)
     {
-        $realEstate = RealEstate::mine()->whereId($id)->active()->first();
+        $realEstate = RealEstate::mine()->whereId($id)->first();
 
-        if (!$realEstate)  return $this->respondNoContent();
+        if (!$realEstate) return $this->errorStatus('not found ..!');
 
         return $this->respondWithItem(new RealEstateLargeResource($realEstate));
     }

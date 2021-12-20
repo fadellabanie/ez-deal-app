@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class VideoFactory extends Factory
+class RealestateAttributeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,9 +14,7 @@ class VideoFactory extends Factory
     public function definition()
     {
         return [
-            'an_name' => $this->faker->word,
-            'en_name' => $this->faker->word,
-            'url' => $this->faker->url,
+            'attribute_id' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7]),
         ];
     }
 }

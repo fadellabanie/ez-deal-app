@@ -4,7 +4,7 @@ namespace App\Http\Resources\Constants;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class NeighborhoodResource extends JsonResource
+class PricesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,10 +14,11 @@ class NeighborhoodResource extends JsonResource
      */
     public function toArray($request)
     {
-       
+    
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'day' => $this->day,
+            'price' => $this->pivot->price,
         ];
     }
 }

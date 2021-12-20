@@ -3,8 +3,8 @@
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Customers\v1\Auth\AuthController;
-use App\Http\Controllers\Api\Customers\v1\RealEstate\RealEstateController;
+use App\Http\Controllers\Api\Customers\V1\Auth\AuthController;
+use App\Http\Controllers\Api\Customers\V1\RealEstate\RealEstateController;
 
 
 Route::get('now', function () {

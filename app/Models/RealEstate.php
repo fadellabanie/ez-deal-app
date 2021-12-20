@@ -15,6 +15,13 @@ class RealEstate extends Model
 
     use HasFactory,Translatable;
 
+    const STATUS_SHOW = 1; 
+    const STATUS_HIDEN = 2; 
+
+    const GUEST_TYPE_FAMILY = 1; 
+    const GUEST_TYPE_MENS = 2; 
+    
+
     const PAGINATE = 25;
     const SELL = 1;
     const RENT = 2;
@@ -23,24 +30,14 @@ class RealEstate extends Model
         'name'
     ];
     protected $fillable = [
-        'owner_id', 'realestate_type_id',
+      'code',  'owner_id', 'realestate_type_id',
         'city_id', 'country_id', 'price',
         'ar_name', 'en_name','guest_count','is_sleep','wc_count','wc_prepared','space', 'description',
-        'room', 'wc',
-        'guests', 'bed',
-        'leave_time', 'enter_time',
-        'note', 'number_of_views',
-        'status', 'lat',
-        'lng', 'address',
-        'living_room',
-        'bed_room',
-        'large_bed_count',
-        'kitchen_count',
-        'smail_bed_count',
-        'kitchen_prepared',
-        'image',
-        'is_reserved',
-        'is_overnight',
+         'guest_type',  'leave_time', 'enter_time',
+        'note', 'number_of_views','status', 'lat','bed_room',
+        'living_room',  'lng', 'address', 'large_bed_count',
+        'kitchen_count', 'smail_bed_count', 'kitchen_prepared',
+        'image','is_reserved', 'is_overnight',
     ];
     
     public function scopeActive($query)
@@ -85,7 +82,7 @@ class RealEstate extends Model
            // ->withPivot('number', 'status')
             ->withTimestamps();
     }
-    public function days()
+    public function prices()
     {
         return $this->belongsToMany(Day::class, 'realestate_price', 'realestate_id', 'day_id')
             ->withPivot('price')
