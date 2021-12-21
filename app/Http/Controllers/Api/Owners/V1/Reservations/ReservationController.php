@@ -53,6 +53,23 @@ class ReservationController extends Controller
         return $this->successStatus(__('reservations successfully'));
     }
 
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        Reservations::whereId($id)->update([
+            'from' => $request->from,
+            'to' => $request->to,
+        ]);
+
+        return $this->successStatus(__('created successfully'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *

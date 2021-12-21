@@ -88,4 +88,10 @@ class RealEstate extends Model
             ->withPivot('price')
             ->withTimestamps();
     }
+
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'coupon_realestate', 'realestate_id', 'coupon_id')
+            ->withTimestamps();
+    }
 }

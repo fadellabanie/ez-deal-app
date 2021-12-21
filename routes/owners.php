@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Owners\V1\Auth\AuthController;
+use App\Http\Controllers\Api\Owners\V1\Coupons\CouponController;
 use App\Http\Controllers\Api\Owners\V1\General\GeneralController;
 use App\Http\Controllers\Api\Owners\V1\RealEstate\RealEstateController;
 use App\Http\Controllers\Api\Owners\V1\Reservations\ReservationController;
@@ -34,9 +35,11 @@ Route::group(['middleware' => 'auth:owner'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::apiResource('realEstates', RealEstateController::class);
+    Route::post('realEstates-prices', [RealEstateController::class,'updatePrice']);
 
     Route::get('home', [GeneralController::class, 'home']);
     Route::get('videos', [GeneralController::class, 'video']);
     Route::post('update-profile', [GeneralController::class, 'updateProfile']);
-    Route::apiResource('reservations',ReservationController::class)->only('index','store','destroy');
+    Route::apiResource('reservations',ReservationController::class)->except('show');
+    Route::apiResource('coupons',CouponController::class)->except('show');
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Owners\V1\RealEstate;
 
 use App\Models\RealEstate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Owners\RealEstates\StoreRequest;
 use App\Http\Requests\Api\Owners\RealEstates\UpdateRequest;
@@ -71,6 +72,28 @@ class RealEstateController extends Controller
         $request->edit($id);
 
         return $this->successStatus(__('created successfully'));
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePrice(Request $request)
+    {
+        foreach ($request->prices as $key => $price) {
+            DB::table('realestate_price')->insert([
+                'realestate_id' => $request->realestates_id,
+                'day_id' => $request->days[$key],
+                'price' => $price,
+            ]);
+        }
+       
+        RealEstate::whereId($request->realestates_id)->update([
+            'price' => $request->prices[0]
+        ]);
+
+        return $this->successStatus(__('updated price successfully'));
     }
 
     /**

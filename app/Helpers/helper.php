@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Storage;
 if (!function_exists('generateRandomCode')) {
 	function generateRandomCode($string)
 	{
-		return $string . '-' . substr(md5(microtime()), rand(0, 26), 8);
+		return $string . '-' . substr(md5(microtime()), rand(0, 26), 3);
 	}
 }
 
