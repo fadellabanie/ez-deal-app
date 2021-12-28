@@ -6,8 +6,9 @@ use App\Models\RealEstate;
 use App\Models\Reservations;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Api\Owners\Reservations\StoreRequest;
 use App\Http\Resources\Owners\RealEstates\RealEstateCollection;
+use App\Http\Resources\Owners\Reservations\ReservationCollection;
 
 class ReservationController extends Controller
 {
@@ -19,17 +20,57 @@ class ReservationController extends Controller
      */
     public function index(Request $request)
     {
-
-        $realEstates = RealEstate::with([
-            'city', 'country', 'realestateType', 'medias', 'attributes', 'prices'
-        ])->mine()->active()->reserved()
-            ->where(function ($q) use ($request) {
+        $reservations = Reservations::with(['realestate' => function ($q) use ($request) {
+            $q->mine()->active()->reserved()->where(function ($q) use ($request) {
                 $q->where('ar_name', 'like', '%' . $request->search . '%');
                 $q->orWhere('en_name', 'like', '%' . $request->search . '%');
-            })
-            ->orderByDesc('id')->paginate(RealEstate::PAGINATE);
+            });
+        }])
+            ->reserve()
+            ->orderByDesc('id')
+            ->paginate(RealEstate::PAGINATE);
 
-        return new RealEstateCollection($realEstates);
+        return new ReservationCollection($reservations);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function active(Request $request)
+    {
+        $reservations = Reservations::with(['realestate' => function ($q) use ($request) {
+            $q->mine()->active()->reserved()->where(function ($q) use ($request) {
+                $q->where('ar_name', 'like', '%' . $request->search . '%');
+                $q->orWhere('en_name', 'like', '%' . $request->search . '%');
+            });
+        }])
+            ->where('from', '<=', now())
+            ->where('to', '>=', now())
+            ->orderByDesc('id')
+            ->paginate(RealEstate::PAGINATE);
+
+        return new ReservationCollection($reservations);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function finished(Request $request)
+    {
+        $reservations = Reservations::with(['realestate' => function ($q) use ($request) {
+            $q->mine()->active()->reserved()->where(function ($q) use ($request) {
+                $q->where('ar_name', 'like', '%' . $request->search . '%');
+                $q->orWhere('en_name', 'like', '%' . $request->search . '%');
+            });
+        }])
+            ->notReserved()
+            
+            ->orderByDesc('id')
+            ->paginate(RealEstate::PAGINATE);
+
+        return new ReservationCollection($reservations);
     }
     /**
      * Store a newly created resource in storage.
@@ -37,23 +78,35 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
+        $reservation = Reservations::where('realestate_id', $request->realestate_id)
+            ->whereBetween('from', [$request->from, $request->to])
+            ->orWhereBetween('to', [$request->from, $request->to])
+            ->orWhere(fn ($q) =>
+            $q->where('from', '<', $request->from)
+                ->where('to', '>', $request->to))
+            ->exists();
+
+        if (!$reservation) {
+            return $this->errorStatus('date not available');
+        }
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $request->to);
+        $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $request->from);
+        $diff_in_days = $to->diffInDays($from);
+
         Reservations::create([
             'realestate_id' => $request->realestate_id,
             'from' => $request->from,
             'to' => $request->to,
-            'status' => 'reserve',
-        ]);
-
-        RealEstate::whereId($request->realestate_id)->update([
-            'is_reserved' => true
+            'diff_in_days' => $diff_in_days,
+            'status' => Reservations::Reserve,
         ]);
 
         return $this->successStatus(__('reservations successfully'));
     }
 
-     /**
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

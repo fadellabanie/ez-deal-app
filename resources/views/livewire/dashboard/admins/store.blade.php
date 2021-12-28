@@ -6,7 +6,7 @@
             data-bs-target="#kt_account_profile_details" aria-expanded="true"
             aria-controls="kt_account_profile_details">
             <div class="card-title m-0">
-                <h3 class="fw-bolder m-0">{{__("Create Admin")}}</h3>
+                <h3 class="fw-bolder m-0">{{ __('Create Admin') }}</h3>
             </div>
         </div>
         <div id="kt_account_profile_details" class="collapse show">
@@ -14,7 +14,7 @@
                 <div class="card-body border-top p-9">
                     <!--begin::Input group-->
                     <div class="row mb-6">
-                        <x-label class="required">{{__("UserName")}}</x-label>
+                        <x-label class="required">{{ __('UserName') }}</x-label>
                         <div class="col-lg-8">
                             <div class="row">
                                 <div class="col-lg-12 fv-row">
@@ -24,10 +24,9 @@
                         </div>
                     </div>
                     <!--end::Input group-->
-
                     <!--begin::Input group-->
                     <div class="row mb-6">
-                        <x-label class="required">{{__("Email")}}</x-label>
+                        <x-label class="required">{{ __('Email') }}</x-label>
                         <div class="col-lg-8">
                             <div class="row">
                                 <div class="col-lg-12 fv-row">
@@ -37,11 +36,10 @@
                         </div>
                     </div>
                     <!--end::Input group-->
-
                     <!--begin::Input group-->
                     <div class="row mb-6">
                         <x-label>
-                            <span class="required">{{__("Role")}}</span>
+                            <span class="required">{{ __('Role') }}</span>
                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                 title="Phone number must be active"></i>
                         </x-label>
@@ -49,11 +47,11 @@
                             <div wire:ignore>
                                 <select wire:model="role" id="role" name="role" data-control="select2"
                                     class="form-select form-select-solid form-select-lg fw-bold">
-                                    <option disable>{{__("Select...")}}</option>
+                                    <option disable>{{ __('Select...') }}</option>
                                     {{-- <option value="admin">{{__("Admin")}}</option> --}}
-                                 @foreach ($roles as $role)
-                                 <option value="{{$role->name}}">{{$role->name}}</option>
-                                 @endforeach
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <x-error-select field="role" />
@@ -62,27 +60,14 @@
                     <!--end::Input group-->
                     <!--begin::Input group-->
                     <div class="row mb-6">
-                        <x-label class="required">{{__("mobile")}}</x-label>
+                        <x-label class="required">{{ __('mobile') }}</x-label>
                         <div class="col-lg-8">
                             <div class="row">
-                                <div class="col-lg-4 fv-row">
-                                    <div wire:ignore>
-                                        <select wire:model="country_code" data-control="select2" id="country_code"
-                                            name="country_code"
-                                            class="form-select form-select-solid form-select-lg fw-bold">
-                                            <option disable>{{__("Select...")}}</option>
-                                            <option value="SA">{{__("Saudi Arabia")}}</option>
-                                        </select>
-                                    </div>
-                                    <x-error-select field="country_code" />
-                                </div>
-                                <div class="col-lg-4 fv-row">
+
+                                <div class="col-lg-12 fv-row">
                                     <x-input type="tel" field="mobile" wire:model="mobile" placeholder="Mobile" />
                                 </div>
-                                <div class="col-lg-4 fv-row">
-                                    <x-input type="tel" field="whatsapp_mobile" wire:model="whatsapp_mobile"
-                                        placeholder="Whatsapp Mobile" />
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -90,7 +75,7 @@
 
                     <!--begin::Input group-->
                     <div class="row mb-6">
-                        <x-label class="required">{{__("Password")}}</x-label>
+                        <x-label class="required">{{ __('Password') }}</x-label>
                         <div class="col-lg-8">
                             <div class="row">
                                 <div class="col-lg-12 fv-row">
@@ -101,34 +86,10 @@
                         </div>
                     </div>
                     <!--end::Input group-->
-
-
-                    <!--begin::Input group-->
-                    <div class="row mb-6">
-                        <x-label>
-                            <span class="required">{{__("City")}}</span>
-                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                title="Phone number must be active"></i>
-                        </x-label>
-                        <div class="col-lg-8 fv-row">
-                            <div wire:ignore>
-                                <select data-control="select2" id="city_id" name="city_id"
-                                    class="form-select form-select-solid form-select-lg fw-bold">
-                                    <option>{{__("Select...")}}</option>
-                                    @foreach (cities() as $city)
-                                    <option value="{{$city->id}}">{{$city->en_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <x-error-select field="city_id" />
-                        </div>
-                    </div>
-                    <!--end::Input group-->
-
                     <!--begin::Input group-->
                     <div class="row mb-0">
                         <!--begin::Label-->
-                        <label class="col-lg-4 col-form-label fw-bold fs-6 mt-4">{{__("Avatar")}}</label>
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 mt-4">{{ __('Avatar') }}</label>
                         <!--begin::Label-->
                         <!--begin::Label-->
                         <div class="col-lg-8 d-flex align-items-center">
@@ -166,10 +127,10 @@
                                     <progress max="100" x-bind:value="progress"></progress>
                                 </div>
 
-                                @if($avatar)
-                                <div class="symbol symbol-750 mt-5">
-                                    <img alt="" src="{{ $avatar->temporaryUrl() }}" />
-                                </div>
+                                @if ($avatar)
+                                    <div class="symbol symbol-750 mt-5">
+                                        <img alt="" src="{{ $avatar->temporaryUrl() }}" />
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -179,11 +140,11 @@
                 </div>
                 <!--end::Card body-->
                 <div class="card-footer d-flex justify-content-end py-6 px-9">
-                    <a href="{{route('admin.admins.index')}}"
-                        class="btn btn-light btn-active-light-primary me-2">{{__("Back")}}</a>
+                    <a href="{{ route('admin.admins.index') }}"
+                        class="btn btn-light btn-active-light-primary me-2">{{ __('Back') }}</a>
                     <button type="button" class="btn btn-primary" wire:click.prevent="submit()"
                         wire:loading.attr="disabled"
-                        wire:loading.class="spinner spinner-white spinner-left">{{__("Save")}}</button>
+                        wire:loading.class="spinner spinner-white spinner-left">{{ __('Save') }}</button>
                 </div>
             </form>
         </div>
@@ -191,24 +152,14 @@
 </div>
 
 @section('scripts')
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
 
-    $('#role').select2({
-        placeholder: 'select..',
-    }).on('change', function () {
-        @this.role = $(this).val();
-    });  $('#city_id').select2({
-        placeholder: 'select..',
-    }).on('change', function () {
-        @this.city_id = $(this).val();
-    });  
-     $('#country_code').select2({
-        placeholder: 'select..',
-    }).on('change', function () {
-        @this.country_code = $(this).val();
-    });  
-});
-
-</script>
+            $('#role').select2({
+                placeholder: 'select..',
+            }).on('change', function() {
+                @this.role = $(this).val();
+            });
+        });
+    </script>
 @endsection

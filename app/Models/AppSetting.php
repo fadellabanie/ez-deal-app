@@ -24,5 +24,6 @@ class AppSetting extends Model
         'snapchat',
         'whats_app', 
         'email',
+        'mobile',
     ];
 }

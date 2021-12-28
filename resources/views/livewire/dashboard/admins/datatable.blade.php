@@ -10,12 +10,6 @@
             <div class="card-toolbar my-1">
 
                 <div class="d-flex align-items-center position-relative my-1">
-                    <div class="me-6 my-1">
-                        <x-city></x-city>
-                    </div>
-                    <div class="me-6 my-1">
-                        <x-user-status></x-user-status>
-                    </div>
                     <div class="d-flex align-items-center position-relative my-1">
                         <x-search-input></x-search-input>
                     </div>

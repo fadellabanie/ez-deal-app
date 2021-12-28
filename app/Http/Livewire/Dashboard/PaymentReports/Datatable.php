@@ -31,7 +31,7 @@ class Datatable extends Component
     public function render()
     {
         return view('livewire.dashboard.payment-reports.datatable',[
-            'reports' => PaymentReport::with('user','package')->orderBy($this->sortBy, $this->sortDirection)
+            'reports' => PaymentReport::orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->count),
         ]);
     }

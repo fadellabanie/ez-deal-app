@@ -3,8 +3,9 @@
 namespace App\Http\Resources\Owners;
 
 use Carbon\Carbon;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\RealEstate;
 use phpDocumentor\Reflection\Types\Boolean;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class OwnerResource extends JsonResource
 {
@@ -16,15 +17,18 @@ class OwnerResource extends JsonResource
      */
     public function toArray($request)
     {
+        $total_my_realestate = RealEstate::mine()->count();
+        $total_reserved_realestate = RealEstate::reserved()->count();
+        $total_not_reserved_realestate = RealEstate::notReserved()->count();
         return [
             'id' => $this->id,
             'username' => $this->first_name,
             'mobile' => $this->mobile,
             'email' => $this->email,
             'avatar' => asset($this->avatar),
-            'is_dark' => (Boolean) $this->is_dark,
-            'created_at' => (string) $this->created_at,
-            'verified' =>(string) $this->verified_at,
+            'total_my_realestate' => $total_my_realestate,
+            'total_reserved_realestate' => $total_reserved_realestate,
+            'total_not_reserved_realestate' => $total_not_reserved_realestate,
             'token_type' => 'Bearer',
             'access_token' => $this->remember_token,
         ];

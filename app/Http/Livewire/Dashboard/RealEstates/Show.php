@@ -23,8 +23,10 @@ class Show extends Component
 
     public function mount(RealEstate $realEstate)
     {
-        $this->realEstate = RealEstate::with('user','medias')->whereId($realEstate->id)->first();
-       // dd($this->realEstate);
+        $this->realEstate = RealEstate::with('owner', 'medias')
+            ->whereId($realEstate->id)
+            ->first();
+        // dd($this->realEstate);
     }
 
 
@@ -32,20 +34,18 @@ class Show extends Component
     {
         $this->emit('openPublishModal'); // Open model to using to jquery
 
-    } 
-     public function publish()
+    }
+    public function publish()
     {
         $validatedData = $this->validate();
 
         $upgradeFactory = new UpgradeFactory();
-        $factory = $upgradeFactory->initialize($validatedData['type'], $this->realEstate->id,$validatedData['end_date']);
+        $factory = $upgradeFactory->initialize($validatedData['type'], $this->realEstate->id, $validatedData['end_date']);
 
         $factory->upgrade();
-        $this->emit('closePublishModal'); 
+        $this->emit('closePublishModal');
         session()->flash('alert', __('Publish Successfully.'));
-
-
-    } 
+    }
     public function render()
     {
         return view('livewire.dashboard.real-estates.show');

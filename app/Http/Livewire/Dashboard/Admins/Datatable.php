@@ -78,9 +78,8 @@ class Datatable extends Component
     public function render()
     {
         return view('livewire.dashboard.admins.datatable',[
-            'users' => User::with('city','roles')->whereType('admin')
-            
-            ->select(['id', 'name', 'avatar', 'email', 'mobile', 'type','status','suspend', 'created_at'])
+            'users' => User::with('roles')
+            ->select(['id', 'name', 'avatar', 'email', 'mobile','status','suspend', 'created_at'])
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->count),
         ]);

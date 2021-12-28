@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use App\Models\City;
 use App\Models\View;
 use App\Models\Country;
-use App\Models\ContractType;
 use App\Models\RealestateType;
 use App\Models\Package;
 use App\Models\RealEstate;
@@ -70,13 +69,6 @@ if (!function_exists('viewTypes')) {
 	{
 		$views = View::get();
 		return $views;
-	}
-}
-if (!function_exists('contractTypes')) {
-	function contractTypes()
-	{
-		$contractTypes = ContractType::get();
-		return $contractTypes;
 	}
 }
 if (!function_exists('realestateType')) {

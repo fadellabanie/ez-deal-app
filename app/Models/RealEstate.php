@@ -13,14 +13,14 @@ class RealEstate extends Model
 {
     public $table = 'realestates';
 
-    use HasFactory,Translatable;
+    use HasFactory, Translatable;
 
-    const STATUS_SHOW = 1; 
-    const STATUS_HIDEN = 2; 
+    const STATUS_SHOW = 1;
+    const STATUS_HIDEN = 2;
 
-    const GUEST_TYPE_FAMILY = 1; 
-    const GUEST_TYPE_MENS = 2; 
-    
+    const GUEST_TYPE_FAMILY = 1;
+    const GUEST_TYPE_MENS = 2;
+
 
     const PAGINATE = 25;
     const SELL = 1;
@@ -30,19 +30,24 @@ class RealEstate extends Model
         'name'
     ];
     protected $fillable = [
-      'code',  'owner_id', 'realestate_type_id',
+        'code',  'owner_id', 'realestate_type_id',
         'city_id', 'country_id', 'price',
-        'ar_name', 'en_name','guest_count','is_sleep','wc_count','wc_prepared','space', 'description',
-         'guest_type',  'leave_time', 'enter_time',
-        'note', 'number_of_views','status', 'lat','bed_room',
+        'ar_name', 'en_name', 'guest_count', 'is_sleep', 'wc_count', 'wc_prepared', 'space', 'description',
+        'guest_type',  'leave_time', 'enter_time',
+        'note', 'number_of_views', 'status', 'lat', 'bed_room',
         'living_room',  'lng', 'address', 'large_bed_count',
         'kitchen_count', 'smail_bed_count', 'kitchen_prepared',
-        'image','is_reserved', 'is_overnight',
+        'image', 'is_reserved', 'is_overnight','is_active'
     ];
-    
+
+    public $with = ['city', 'country', 'realestateType', 'medias', 'attributes', 'prices'];
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+    }public function scopeNotActive($query)
+    {
+        return $query->where('is_active', false);
     }
     public function scopeReserved($query)
     {
@@ -76,10 +81,14 @@ class RealEstate extends Model
     {
         return $this->hasMany(RealestateMedia::class, 'realestate_id');
     }
+    public function reservations()
+    {
+        return $this->hasMany(Reservations::class, 'realestate_id');
+    }
     public function attributes()
     {
         return $this->belongsToMany(Attribute::class, 'realestate_attributes', 'realestate_id', 'attribute_id')
-           // ->withPivot('number', 'status')
+            // ->withPivot('number', 'status')
             ->withTimestamps();
     }
     public function prices()

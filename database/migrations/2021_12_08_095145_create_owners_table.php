@@ -29,7 +29,7 @@ class CreateOwnersTable extends Migration
             $table->string('account_number')->nullable();
             //$table->date('birthday');
             $table->string('avatar')->nullable();
-            $table->string('status')->nullable();
+            $table->boolean('status')->nullable();
             $table->text('remember_token')->nullable();
             $table->text('device_token')->nullable();
             $table->date('block_date')->nullable()->comment('Block date until');

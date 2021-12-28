@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
         DB::table('users')->insert([
+            'role_id' => 1,
             'name' => 'fadellabanie',
             'mobile' => '011315200',
             'email' => 'admin@admin.com',

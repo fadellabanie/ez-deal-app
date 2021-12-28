@@ -21,6 +21,7 @@ class Update extends Component
         'appSetting.snapchat' => 'required',
         'appSetting.whats_app' => 'required',
         'appSetting.email' => 'required|email',
+        'appSetting.mobile' => 'required',
     ];
 
     public function submit()

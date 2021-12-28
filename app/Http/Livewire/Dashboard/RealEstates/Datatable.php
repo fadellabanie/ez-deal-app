@@ -74,30 +74,11 @@ class Datatable extends Component
     {
         $row = RealEstate::whereId($id)->first();
 
-        if ($row->is_active == true) {
-            $row->update([
-                'is_active' => false,
-                'end_date'  => now()->subDay(1),
-            ]);
-        } else {
-            $row->update([
-                'is_active' => true,
-                'end_date'  => now()->addDays(30),
-            ]);
-        }
-
+        $row->update([
+            'is_active' => !$row->is_active,
+        ]);
 
         session()->flash('alert', __('Change Active Successfully.'));
-    }
-    public function NotifyUnActiveRealEstate()
-    {
-
-        $title = __("RealEstate");
-        $body = __("please Active your RealEstate");
-        NotifyUnActiveRealEstate::dispatch($title, $body); ##Queue
-
-
-        session()->flash('alert', __('Send Notification Successfully.'));
     }
 
     public function render()
@@ -107,29 +88,18 @@ class Datatable extends Component
             'realEstates' => RealEstate::with([
                 'realestateType' => function ($q) {
                     return $q->select('id', 'en_name');
-                }, 'contractType'
-                => function ($q) {
-                    return $q->select('id', 'en_name');
-                }, 'city', 'user'
+                }, 'city', 'owner'
             ])
 
                 ->when($this->city_id != 'all', function ($q) {
                     $q->where('city_id', $this->city_id);
                 })
-                ->when($this->contract_type_id != 'all', function ($q) {
-                    $q->where('contract_type_id', $this->contract_type_id);
-                })
+
                 ->when($this->realestate_type_id != 'all', function ($q) {
                     $q->where('realestate_type_id', $this->realestate_type_id);
                 })
                 ->when($this->is_active != 'all', function ($q) {
-                    if ($this->is_active == 1) {
-                        $q->where('is_active', $this->is_active);
-                        $q->where('end_date', '>=', now());
-                    } else {
-                        $q->where('is_active', $this->is_active);
-                        $q->where('end_date', '<', now());
-                    }
+                    $q->where('is_active', $this->is_active);
                 })
                 ->search('name', $this->search)
                 ->orSearch('address', $this->search)

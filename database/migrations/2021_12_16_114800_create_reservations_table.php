@@ -18,6 +18,7 @@ class CreateReservationsTable extends Migration
             $table->unsignedBigInteger('realestate_id');
             $table->timestamps('from');
             $table->timestamps('to');
+            $table->integer('diff_in_days');
             $table->string('status');
             $table->timestamps();
         });

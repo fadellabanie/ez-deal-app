@@ -89,6 +89,19 @@
                             </div>
                         </div>
                     </div>
+                    <!--end::Input group--> 
+                    <!--begin::Input group-->
+                    <div class="row mb-6">
+                        <x-label class="required">{{__("Mobile")}}</x-label>
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-lg-12 fv-row">
+                                    <x-input type="tel" field="appSetting.mobile" wire:model="appSetting.mobile"
+                                        placeholder="Mobile" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!--end::Input group-->
 
                 </div>

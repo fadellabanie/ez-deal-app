@@ -9,4 +9,3 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::post('upload', [GeneralController::class, 'upload']);
 });
-storage

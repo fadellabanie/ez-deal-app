@@ -27,8 +27,8 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <div class="text-inverse-info fw-bolder fs-2 mb-2 mt-5">{{$totalRealEstates}}</div>
-                                <div class="fw-bold text-inverse-info fs-7">{{__("Total Real Estates")}}</div>
+                                <div class="text-inverse-info fw-bolder fs-2 mb-2 mt-5">{{$totalNotActiveRealEstates}}</div>
+                                <div class="fw-bold text-inverse-info fs-7">{{__("Total not Active Real Estates")}}</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -114,8 +114,8 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <div class="text-inverse-info fw-bolder fs-2 mb-2 mt-5">{{$unReviewRealEstates}}</div>
-                                <div class="fw-bold text-inverse-info fs-7">{{__("Un Review RealEstate")}}</div>
+                                <div class="text-inverse-info fw-bolder fs-2 mb-2 mt-5">{{$totalActiveRealEstates}}</div>
+                                <div class="fw-bold text-inverse-info fs-7">{{__("Total Active RealEstate")}}</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -167,9 +167,7 @@
                                             <td class="text-end">
                                                 <span
                                                     class="badge badge-light-danger fw-bold me-1">{{$last->realestateType->en_name}}</span>
-                                                <span
-                                                    class="badge badge-light-info fw-bold me-1">{{$last->contractType->en_name}}</span>
-                                            </td>
+                                                </td>
                                             <td class="text-end">
                                                 <span class="text-muted fw-bold">{{$last->price}}</span>
                                             </td>

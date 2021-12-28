@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Owners\RealEstates;
 
 use App\Models\RealEstate;
+use App\Models\Reservations;
 use App\Http\Resources\Constants\ImageResource;
 use App\Http\Resources\Constants\PricesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -33,10 +34,8 @@ class RealEstateLargeResource extends JsonResource
             'is_sleep' => (bool)$this->is_sleep,
             'wc_count' => $this->wc_count,
             'wc_prepared' => (bool) $this->wc_prepared,
-       
             'leave_time' => $this->leave_time,
             'enter_time' => $this->enter_time,
-            
             'number_of_views' => $this->number_of_views,
             'status' => $this->status,
             'living_room' => $this->liveing_room,
@@ -54,6 +53,7 @@ class RealEstateLargeResource extends JsonResource
             'lat' => $this->lat,
             'lng' => $this->lng,
             'number_of_views' => $this->number_of_views,
+            'reservations_days' => $this->reservations,
             'created_at' => $this->created_at->format('Y-m-d'),
             'images' => ImageResource::collection($this->medias),
             'attributes' => AttributesResource::collection($this->attributes),

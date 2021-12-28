@@ -13,8 +13,8 @@ class Store extends Component
 
     use WithFileUploads;
 
-    public $name, $email, $mobile,$whatsapp_mobile;
-    public $password, $country_code, $city_id,$avatar;
+    public $name, $email, $mobile, $whatsapp_mobile;
+    public $password, $country_code, $city_id, $avatar;
     public $role;
 
     protected $rules = [
@@ -22,10 +22,7 @@ class Store extends Component
         'role' =>  'required',
         'email' =>  'required|unique:users,email',
         'mobile' =>  'required|unique:users,mobile',
-        'whatsapp_mobile' =>  'required|unique:users,whatsapp_mobile',
         'password' => 'required|min:8|max:15',
-        'country_code' => 'required',
-        'city_id' => 'required',
         'avatar' => 'required',
     ];
     public function updated($propertyName)
@@ -36,22 +33,20 @@ class Store extends Component
     public function submit()
     {
         $validatedData = $this->validate();
-       
+
         $validatedData['avatar'] = ($this->avatar) ? uploadToPublic('users', $validatedData['avatar']) : "";
         $validatedData['password'] = Hash::make($validatedData['password']);
-        $validatedData['type'] = 'admin';
         $validatedData['status'] = true;
         $validatedData['verified_at'] = now();
-        
-       $user = User::create($validatedData);
-       
-       $user->assignRole($validatedData['role']);
+
+        $user = User::create($validatedData);
+
+        $user->assignRole($validatedData['role']);
 
         $this->reset();
 
         session()->flash('alert', __('Saved Successfully.'));
         return redirect()->route('admin.admins.index');
-
     }
 
     public function resetForm()
@@ -62,7 +57,7 @@ class Store extends Component
     }
     public function render()
     {
-        return view('livewire.dashboard.admins.store',[
+        return view('livewire.dashboard.admins.store', [
             'roles' => Role::get(),
         ]);
     }
