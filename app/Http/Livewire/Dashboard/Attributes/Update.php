@@ -13,25 +13,11 @@ class Update extends Component
     use AuthorizesRequests;
 
     public $attribute;
-    public $icon;
 
     protected $rules = [
-        'attribute.ar_name' => 'required|min:4|max:100',
-        'attribute.en_name' =>'required|min:4|max:100',
-        'attribute.ar_description' => 'required|min:4|max:250',
-        'attribute.en_description' =>'required|min:4|max:250',
-        'attribute.price' => 'required|numeric',
-        'attribute.days' => 'required|numeric',
-        'attribute.is_active' => 'required',
-        'attribute.icon' => 'nullable'
+        'attribute.ar_name' => 'required|min:2|max:100',
+        'attribute.en_name' =>'required|min:2|max:100',
     ];
-
-    public function updatedIcon()
-    {
-        $this->validate([
-            'icon' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
-        ]);
-    }
 
     public function submit()
     {
@@ -40,13 +26,6 @@ class Update extends Component
        $validatedData = $this->validate();
 
         $this->attribute->save();
-
-        if ($this->icon) {
-            
-            $this->package->update([
-                'icon' => uploadToPublic('attributes',$validatedData['icon']),
-            ]);
-        }
 
         session()->flash('alert', __('Update Successfully.'));
 

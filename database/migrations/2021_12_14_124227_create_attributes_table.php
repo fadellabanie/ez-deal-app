@@ -23,10 +23,14 @@ class CreateAttributesTable extends Migration
         DB::table('attributes')->insert([
             'ar_name' => 'مصعد',
             'en_name' => 'elvater',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]); 
         DB::table('attributes')->insert([
             'ar_name' => 'wc',
             'en_name' => 'wc',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 

@@ -13,21 +13,14 @@ class Store extends Component
     use WithFileUploads;
     use AuthorizesRequests;
 
-    public $ar_name, $en_name, $ar_description, $en_description;
-    public $color, $price, $count,$attribute_ids, $icon, $is_active;
-
+    public $ar_name, $en_name;
 
     protected $rules = [
-
-        'ar_name' => 'required|min:4|max:100',
-        'en_name' => 'required|min:4|max:100',
-        'ar_description' => 'required|min:4|max:250',
-        'en_description' => 'required|min:4|max:250',
-        'price' => 'required|numeric',
-        'count' => 'required|numeric',
-        'icon' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
-        'is_active' => 'required',
+        'ar_name' => 'required|min:2|max:100',
+        'en_name' => 'required|min:2|max:100',
+      
     ];
+
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
@@ -38,9 +31,6 @@ class Store extends Component
         $this->authorize('create attributes');
 
         $validatedData = $this->validate();
-
-        $validatedData['slug'] = Str::slug($validatedData['en_name']);
-        $validatedData['icon'] = ($this->icon) ? uploadToPublic('attributes', $validatedData['icon']) : "";
 
          //dd( $validatedData);
         Attribute::create($validatedData);

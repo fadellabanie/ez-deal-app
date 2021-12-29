@@ -17,7 +17,7 @@ class RealEstateFactory extends Factory
         return [
             'code' => generateRandomCode('real'),
             'realestate_type_id' => $this->faker->randomElement([1, 2]),
-            'city_id' => $this->faker->randomElement([1, 2, 3]),
+            'city_id' => $this->faker->randomElement([1, 2]),
             'country_id' => 1,
             'price' => $this->faker->randomNumber(3),
             'ar_name' => $this->faker->name,

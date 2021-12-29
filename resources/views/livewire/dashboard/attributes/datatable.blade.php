@@ -37,29 +37,6 @@
                                     <x-sort field="name" sortBy="{{$sortBy}}" sortDirection="{{$sortDirection}}">
                                     </x-sort>
                                 </th>
-                                <th wire:click="sortBy('en_description')" data-sort="{{$sortDirection}}"
-                                    class="min-w-50px">
-                                    {{__("Description")}}
-                                    <x-sort field="en_description" sortBy="{{$sortBy}}"
-                                        sortDirection="{{$sortDirection}}">
-                                    </x-sort>
-                                </th>
-                                <th wire:click="sortBy('price')" data-sort="{{$sortDirection}}" class="min-w-90px">
-                                    {{__("Price")}}
-                                    <x-sort field="price" sortBy="{{$sortBy}}" sortDirection="{{$sortDirection}}">
-                                    </x-sort>
-                                </th>
-                                <th wire:click="sortBy('count')" data-sort="{{$sortDirection}}" class="min-w-90px">
-                                    {{__("Count")}}
-                                    <x-sort field="count" sortBy="{{$sortBy}}" sortDirection="{{$sortDirection}}">
-                                    </x-sort>
-                                </th>
-                                <th wire:click="sortBy('status')" data-sort="{{$sortDirection}}" class="min-w-90px">
-                                    {{__("status")}}
-                                    <x-sort field="status" sortBy="{{$sortBy}}" sortDirection="{{$sortDirection}}">
-                                    </x-sort>
-                                </th>
-
                                 <th wire:click="sortBy('created_at')" data-sort="{{$sortDirection}}" class="min-w-90px">
                                     {{__("Regester")}}
                                     <x-sort field="created_at" sortBy="{{$sortBy}}" sortDirection="{{$sortDirection}}">
@@ -75,11 +52,6 @@
                                 <td>{{$loop->iteration}}</td>
 
                                 <td>{{$attribute->en_name}}</td>
-                                <td>{{$attribute->en_description}}</td>
-                                <td>{{$attribute->price}}</td>
-                                <td>{{$attribute->count}}</td>
-                                <td>{!!isActive($attribute->status)!!}</td>
-
                                 <td>{{$attribute->created_at->format('m-d-Y')}}</td>
                                 <td>
                                     <div class="d-flex justify-content-end flex-shrink-0">
