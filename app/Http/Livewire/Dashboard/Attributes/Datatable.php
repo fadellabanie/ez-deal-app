@@ -13,6 +13,7 @@ class Datatable extends Component
 {
     use WithPagination;
     use AuthorizesRequests;
+    
     protected $paginationTheme = 'bootstrap';
     public $search;
     public $data_id;
@@ -39,7 +40,7 @@ class Datatable extends Component
         $this->authorize('delete attributes');
 
         $this->emit('openDeleteModal'); // Open model to using to jquery
-      
+
         $this->data_id = $id;
     }
 
@@ -50,21 +51,14 @@ class Datatable extends Component
 
         $this->emit('closeDeleteModal'); // Close model to using to jquery
     }
-    public function export()
-    {
-        $this->authorize('export attributes');
-
-        return Excel::download(new AttributeExport, 'attributes.xlsx');
-    }
+    
     public function render()
     {
-        return view('livewire.dashboard.attributes.datatable',[
+        return view('livewire.dashboard.attributes.datatable', [
             'attributes' => Attribute::search('ar_name', $this->search)
-            ->orSearch('en_name', $this->search)
-            ->orSearch('ar_description', $this->search)
-            ->orSearch('en_description', $this->search)
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate($this->count),
+                ->orSearch('en_name', $this->search)
+                ->orderBy($this->sortBy, $this->sortDirection)
+                ->paginate($this->count),
         ]);
     }
 }
