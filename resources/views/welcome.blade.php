@@ -18,6 +18,7 @@
     <link type="text/css" rel="stylesheet" href="{{asset('application/assets/css/color.css')}}">
     <!--=============== favicons ===============-->
     <link rel="shortcut icon" href="{{asset('application/assets/images/favicon.ico')}}">
+
 </head>
 
 <body>
@@ -30,6 +31,7 @@
     <!--loader end-->
     <!-- main start  -->
     <div id="main">
+    {{-- <div id="home"> --}}
         <!-- header -->
         <header class="main-header">
             <!-- logo-->

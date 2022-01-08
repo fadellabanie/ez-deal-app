@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Customers\V1\Favorites\FavoriteController;
 use App\Http\Controllers\Api\Customers\V1\Auth\AuthController;
 use App\Http\Controllers\Api\Customers\V1\RealEstate\RealEstateController;
 
@@ -18,6 +19,7 @@ Route::post('verify-change-password', [AuthController::class, 'verifyChangePassw
 Route::post('change-password', [AuthController::class, 'changePassword']);
 
 Route::apiResource('real-estates', RealEstateController::class)->only('index', 'show');
+Route::apiResource('favorites', FavoriteController::class)->only('index', 'store');
 /*
 Route::get('home', [HomeController::class, 'home']);
 Route::get('orders', [OrderController::class, 'indexGuest']);
