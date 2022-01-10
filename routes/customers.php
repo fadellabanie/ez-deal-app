@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Customers\V1\Favorites\FavoriteController;
 use App\Http\Controllers\Api\Customers\V1\Auth\AuthController;
 use App\Http\Controllers\Api\Customers\V1\Home\HomeController;
 use App\Http\Controllers\Api\Customers\V1\RealEstate\RealEstateController;
