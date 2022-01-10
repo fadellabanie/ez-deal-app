@@ -24,6 +24,8 @@ class CreateAppBannersTable extends Migration
             $table->string('ar_description');
             $table->string('en_description');
             $table->string('image');
+            $table->string('type');
+            $table->string('location');
             $table->date('start_date');
             $table->date('end_date');
             $table->boolean('status')->default(false);
@@ -37,6 +39,8 @@ class CreateAppBannersTable extends Migration
             'ar_description' => 'silver',
             'en_description' => 'silver',
             'image' => 'image.png',
+            'type' => 'top',
+            'location' => 'mobile',
             'status' => true,
             'start_date' => now(),
             'end_date' => now()->addDays(350),
@@ -51,6 +55,8 @@ class CreateAppBannersTable extends Migration
             'ar_description' => 'silver',
             'en_description' => 'silver',
             'image' => 'image.png',
+            'type' => 'bottom',
+            'location' => 'web',
             'status' => true,
             'start_date' => now(),
             'end_date' => now()->addDays(350),

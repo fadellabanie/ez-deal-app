@@ -31,13 +31,13 @@ class RealEstate extends Model
     ];
     protected $fillable = [
         'code',  'owner_id', 'realestate_type_id',
-        'city_id', 'country_id', 'price',
+        'city_id', 'country_id', 'price','rate',
         'ar_name', 'en_name', 'guest_count', 'is_sleep', 'wc_count', 'wc_prepared', 'space', 'description',
         'guest_type',  'leave_time', 'enter_time',
         'note', 'number_of_views', 'status', 'lat', 'bed_room',
         'living_room',  'lng', 'address', 'large_bed_count',
         'kitchen_count', 'smail_bed_count', 'kitchen_prepared',
-        'image', 'is_reserved', 'is_overnight','is_active'
+        'image', 'is_reserved', 'is_overnight', 'is_active'
     ];
 
     public $with = ['city', 'country', 'realestateType', 'medias', 'attributes', 'prices'];
@@ -45,7 +45,8 @@ class RealEstate extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
-    }public function scopeNotActive($query)
+    }
+    public function scopeNotActive($query)
     {
         return $query->where('is_active', false);
     }

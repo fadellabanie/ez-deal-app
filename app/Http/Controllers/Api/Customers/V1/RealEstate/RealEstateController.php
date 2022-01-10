@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Api\Customers\v1\RealEstate;
 use App\Models\RealEstate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\RealEstates\RealEstateCollection;
-use App\Http\Resources\RealEstates\RealEstateLargeResource;
-use App\Http\Resources\RealEstatesMap\RealEstateMapCollection;
+use App\Http\Resources\Customers\RealEstates\RealEstateCollection;
+use App\Http\Resources\Customers\RealEstates\RealEstateLargeResource;
 
 class RealEstateController extends Controller
 {
@@ -19,13 +18,27 @@ class RealEstateController extends Controller
     public function index(Request $request)
     {
 
-        $realEstates = RealEstate::when($request->filled('city_id'), function ($q) use ($request) {
-            $q->where('city_id', $request->city_id);
-        })->when($request->filled('realestate_type_id'), function ($q) use ($request) {
-            $q->where('realestate_type_id', $request->realestate_type_id);
-        })
-            ->when($request->filled('contract_type_id'), function ($q) use ($request) {
-                $q->where('contract_type_id', $request->contract_type_id);
+
+        $realEstates = RealEstate::NotReserved()
+            ->active()
+
+            ->when($request->filled('city_id'), function ($q) use ($request) {
+                $q->where('city_id', $request->city_id);
+            })
+            ->when($request->filled('realestate_type_id'), function ($q) use ($request) {
+                $q->where('realestate_type_id', $request->realestate_type_id);
+            })
+
+            ->when($request->filled('guest_count'), function ($q) use ($request) {
+                $q->where('guest_count', $request->guest_count);
+            })
+            ->when($request->filled('rate'), function ($q) use ($request) {
+                $q->where('rate', $request->rate);
+            })
+            ->when($request->filled('attributes_ids'), function ($q) use ($request) {
+                $q->whereRelation('attributes', function ($q) use ($request) {
+                    $q->whereIn('attribute_id', $request->attributes_ids);
+                });
             })
             ->when($request->filled('search'), function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%');
@@ -34,9 +47,9 @@ class RealEstateController extends Controller
             })->when($request->filled('space_from') || $request->filled('space_to'), function ($q) use ($request) {
                 $q->whereBetween('space', [$request->space_from, $request->space_to]);
             })
-            ->active()->orderBy('type', 'DESC')->paginate();
+            ->orderBy($request->sorted_by, $request->sorted_type)->paginate();
 
-        return new RealestateCollection($realEstates);
+        return new RealEstateCollection($realEstates);
     }
     /**
      * Display the specified resource.
@@ -47,7 +60,7 @@ class RealEstateController extends Controller
     public function show($id)
     {
         $realEstate = RealEstate::whereId($id)->active()->first();
-        
+
         if (!$realEstate)  return $this->respondNoContent();
 
         $realEstate->increment('number_of_views', 1);

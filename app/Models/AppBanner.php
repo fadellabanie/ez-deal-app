@@ -23,6 +23,7 @@ class AppBanner extends Model
 
     protected $fillable = [
         'type',
+        'location',
         'user_id',
         'make_by',
         'en_name',
@@ -51,6 +52,14 @@ class AppBanner extends Model
     public function scopeBottom($query)
     {
         return $query->where('type', 'bottom');
+    }
+    public function scopeWeb($query)
+    {
+        return $query->where('location', 'mobile');
+    }
+    public function scopeMobile($query)
+    {
+        return $query->where('location', 'web');
     }
     #################
     ### Relations ###

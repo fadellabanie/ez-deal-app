@@ -1,9 +1,9 @@
 <?php
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Customers\V1\Auth\AuthController;
+use App\Http\Controllers\Api\Customers\V1\Home\HomeController;
 use App\Http\Controllers\Api\Customers\V1\RealEstate\RealEstateController;
 
 
@@ -17,9 +17,14 @@ Route::post('verify', [AuthController::class, 'check']);
 Route::post('verify-change-password', [AuthController::class, 'verifyChangePassword']);
 Route::post('change-password', [AuthController::class, 'changePassword']);
 
-Route::apiResource('real-estates', RealEstateController::class)->only('index', 'show');
+
+Route::group(['middleware' => 'auth:owner'], function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('home', [HomeController::class, 'home']);
+    
+    Route::apiResource('real-estates', RealEstateController::class)->only('index', 'show');
+});
 /*
-Route::get('home', [HomeController::class, 'home']);
 Route::get('orders', [OrderController::class, 'indexGuest']);
 Route::get('orders/{order}', [OrderController::class, 'show']);
 

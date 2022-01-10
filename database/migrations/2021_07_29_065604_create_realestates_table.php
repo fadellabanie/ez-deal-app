@@ -43,7 +43,7 @@ class CreateRealestatesTable extends Migration
             $table->longText('note')->nullable();
             $table->boolean('is_overnight');
             $table->integer('number_of_views')->default(0);
-            $table->float('rate')->default(0);
+            $table->tinyInteger('rate')->default(0);
             $table->time('enter_time')->nullable();
             $table->time('leave_time')->nullable();
             $table->boolean('is_reserved')->default(0);

@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateAppSettingsTable extends Migration
 {
@@ -24,8 +25,22 @@ class CreateAppSettingsTable extends Migration
             $table->string('mobile');
             $table->timestamps();
         });
+        DB::table('app_settings')->insert([
+   
+            'facebook' => 'facebook.png',
+            'twitter' => 'twitter.png',
+            'instagram' => 'instagram',
+            'snapchat' => 'snapchat',
+            'email' => 'email',
+            'whats_app' => '234234234',
+            'mobile' => '234234234',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
     }
 
+    
     /**
      * Reverse the migrations.
      *
