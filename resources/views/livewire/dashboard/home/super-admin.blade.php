@@ -251,4 +251,61 @@
         </div>
     </div>
 
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <div id="kt_content_container" class="container">
+            <div class="row gy-5 g-xl-8">
+                <div class="row g-5 g-xl-8">
+                    <div class="card-body" id="map"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
+
+
+@section('scripts')
+
+<script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-CfKkx_9uJ9L2YQSfH8ZcWOqcfZ7nItA&libraries=visualization">
+</script>
+<script>
+    document.addEventListener('livewire:load', function () {
+        var markers = @this.realEstates
+        window.onload = function () {
+            LoadMap();
+        }
+        function LoadMap() {
+            var mapOptions = {
+                center: new google.maps.LatLng(30.055307, 31.266351),
+                zoom: 4,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+     
+            //Create and open InfoWindow.
+            var infoWindow = new google.maps.InfoWindow();
+     
+            for (var i = 0; i < markers.length; i++) {
+                var data = markers[i];
+                var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title: data.en_name
+                });
+     
+                //Attach click event to the marker.
+                (function (marker, data) {
+                    google.maps.event.addListener(marker, "click", function (e) {
+                        //Wrap the content inside an HTML DIV in order to set height and width of InfoWindow.
+                        infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + data.en_name + "</div>");
+                        infoWindow.open(map, marker);
+                    });
+                })(marker, data);
+            }
+        }
+    })
+</script>
+@stop

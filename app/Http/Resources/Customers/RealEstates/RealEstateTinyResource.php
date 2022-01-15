@@ -17,10 +17,7 @@ class RealEstateTinyResource extends JsonResource
        
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'country' => $this->country->name ?? "",
-            'city' => $this->city->name ?? "",
-            'realestate_type_id' => $this->realestateType->name ?? "",
+            'realestate_type' => $this->realestateType->name,
             'price' => $this->price,
             'lat' => $this->lat,
             'lng' => $this->lng,

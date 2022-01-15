@@ -13,6 +13,7 @@ class SuperAdmin extends Component
     public $totalActiveRealEstates;
     public $totalNotActiveRealEstates;
     public $totalOrders;
+    public $realEstates;
 
     public function mount()
     {
@@ -20,6 +21,8 @@ class SuperAdmin extends Component
         $this->totalOrders = 1;
         $this->totalActiveRealEstates = RealEstate::active()->count();
         $this->totalNotActiveRealEstates = RealEstate::notActive()->count();
+        $this->realEstates = RealEstate::select(['id','en_name','address', 'lat','lng'])->get()
+        ->toArray();
     }
     public function render()
     {

@@ -1,7 +1,6 @@
 <?php
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Customers\V1\GeneralController;
 use App\Http\Controllers\Api\Customers\V1\Auth\AuthController;
@@ -33,8 +32,8 @@ Route::group(['middleware' => 'auth:customer'], function () {
     Route::post('book', [BookingController::class, 'book']);
 });
 
+
 /*
-Route::get('home', [HomeController::class, 'home']);
 Route::get('orders', [OrderController::class, 'indexGuest']);
 Route::get('orders/{order}', [OrderController::class, 'show']);
 
