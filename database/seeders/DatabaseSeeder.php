@@ -6,6 +6,7 @@ use App\Models\Day;
 use App\Models\Owner;
 use App\Models\Video;
 use App\Models\Attribute;
+use App\Models\Entertainment;
 use App\Models\RealEstate;
 use App\Models\RealestateMedia;
 use App\Models\RealestatePrice;
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Video::factory(20)->create();
+        Entertainment::factory(50)->create();
 
         Owner::factory()->count(20)->create()->each(function ($data) {
             RealEstate::factory($data)->count(10)->create([

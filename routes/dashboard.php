@@ -21,6 +21,7 @@ Route::group(['as' => 'admin.', 'middleware' => ['auth', 'only.admin']], functio
     Route::resource('payment-reports', App\Http\Controllers\Dashboard\PaymentReportController::class)->only('index');
     Route::resource('cities', App\Http\Controllers\Dashboard\CityController::class);
     Route::resource('countries', App\Http\Controllers\Dashboard\CountryController::class);
+    Route::resource('entertainments', App\Http\Controllers\Dashboard\EntertainmentController::class);
     Route::resource('notifications', App\Http\Controllers\Dashboard\NotificationController::class);
 
     Route::resource('roles', App\Http\Controllers\Dashboard\RoleController::class);

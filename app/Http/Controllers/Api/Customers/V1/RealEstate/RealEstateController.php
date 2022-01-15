@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Customers\v1\RealEstate;
+namespace App\Http\Controllers\Api\Customers\V1\RealEstate;
 
 use App\Models\RealEstate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Customers\RealEstates\RealEstateCollection;
+use App\Http\Resources\Customers\RealEstates\RealEstateTinyResource;
 use App\Http\Resources\Customers\RealEstates\RealEstateLargeResource;
 
 class RealEstateController extends Controller
@@ -37,6 +38,24 @@ class RealEstateController extends Controller
             ->orderByDesc('id')->paginate();
 
         return new RealEstateCollection($realEstates);
+    }
+      /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function displayOnMap(Request $request)
+    {
+
+        $realEstates = RealEstate::active()->NotReserved()
+            ->when($request->filled('city_id'), function ($q) use ($request) {
+                $q->where('city_id', $request->city_id);
+            })->when($request->filled('realestate_type_id'), function ($q) use ($request) {
+                $q->where('realestate_type_id', $request->realestate_type_id);
+            })
+            ->orderByDesc('id')->paginate();
+
+        return  RealEstateTinyResource::Collection($realEstates);
     }
     /**
      * Display the specified resource.

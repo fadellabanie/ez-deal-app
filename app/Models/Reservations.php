@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reservations extends Model
 {
     use HasFactory;
+    const Witing_Reserve = 'witting_reserve';
     const Reserve = 'reserve';
     const Finished = 'finished';
 
