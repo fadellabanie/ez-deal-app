@@ -30,7 +30,9 @@ class HomeController extends Controller
         }
         #####################################
 
-        $homeBanners = AppBanner::mobile()->MyStory($city_id)->bottom()->WhereDate('end_date', '>=', now())->active()->get();
+        $homeBanners = AppBanner::mobile()->MyStory($city_id)
+            ->bottom()
+            ->WhereDate('end_date', '>=', now())->active()->get();
         $data['home_banners'] = HomeBannerResource::collection($homeBanners);
 
         #####################################

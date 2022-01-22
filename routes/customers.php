@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Customers\V1\GeneralController;
 use App\Http\Controllers\Api\Customers\V1\Auth\AuthController;
+use App\Http\Controllers\Api\Customers\V1\Home\HomeController;
 use App\Http\Controllers\Api\Customers\V1\Booking\BookingController;
 use App\Http\Controllers\Api\Customers\V1\Generals\BankCardController;
 use App\Http\Controllers\Api\Customers\V1\Favorites\FavoriteController;
@@ -22,6 +23,8 @@ Route::post('change-password', [AuthController::class, 'changePassword']);
 
 Route::group(['middleware' => 'auth:customer'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::get('home', [HomeController::class, 'home']);
 
     Route::apiResource('real-estates', RealEstateController::class)->only('index', 'show');
     Route::get('real-estates-on-map', [RealEstateController::class, 'displayOnMap']);

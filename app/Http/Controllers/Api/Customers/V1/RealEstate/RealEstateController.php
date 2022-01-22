@@ -51,11 +51,7 @@ class RealEstateController extends Controller
             })->when($request->filled('space_from') || $request->filled('space_to'), function ($q) use ($request) {
                 $q->whereBetween('space', [$request->space_from, $request->space_to]);
             })
-<<<<<<< HEAD
-            ->orderBy($request->sorted_by, $request->sorted_type)->paginate();
-=======
             ->orderByDesc('id')->paginate();
->>>>>>> f0d038a8f56c12edb8370f835c9eb9c3e9bca8e3
 
         return new RealEstateCollection($realEstates);
     }
@@ -85,15 +81,9 @@ class RealEstateController extends Controller
      */
     public function show($id)
     {
-<<<<<<< HEAD
-        $realEstate = RealEstate::whereId($id)->active()->first();
-
-        if (!$realEstate)  return $this->respondNoContent();
-=======
         $realEstate = RealEstate::whereId($id)->active()->NotReserved()->first();
 
         if (!$realEstate)  return $this->errorNotFound();
->>>>>>> f0d038a8f56c12edb8370f835c9eb9c3e9bca8e3
 
         $realEstate->increment('number_of_views', 1);
 

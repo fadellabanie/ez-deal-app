@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\V1;
+namespace App\Http\Controllers\Api;
 
 use App\Models\City;
 use App\Models\View;
@@ -42,17 +42,8 @@ class ConstantController extends Controller
      
         return $this->respondWithCollection(RealEstateTypeResource::collection($data));
     } 
+   
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getContractType()
-    {
-        $data = ContractType::get();
-       
-        return $this->respondWithCollection(ContractTypeResource::collection($data));
-    }/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -85,28 +76,7 @@ class ConstantController extends Controller
      
         return $this->respondWithCollection(NeighborhoodResource::collection($data));
     } 
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getView()
-    {
-        $data = View::get();
-     
-        return $this->respondWithCollection(ViewResource::collection($data));
-    } 
-    
-    /* Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function beforeCreateRealState()
-    {
-        $data = StaticPage::where('type','before-create')->get();
-     
-        return $this->respondWithCollection(StaticPageResource::collection($data));
-    }
+ 
     /**
      * Display a listing of the resource.
      *
@@ -114,8 +84,6 @@ class ConstantController extends Controller
      */
     public function getCreationConst()
     {
-        $data['views'] = View::get();
-        $data['contract_type'] = ContractType::get();
         $data['cities'] = City::get();
         $data['realestate_type'] = RealestateType::get();
 
