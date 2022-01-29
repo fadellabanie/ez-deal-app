@@ -3,10 +3,11 @@
 namespace App\Http\Livewire\Dashboard\Owners;
 
 use App\Models\User;
+use App\Models\Owner;
 use Livewire\Component;
+use App\Exports\OwnerExport;
 use Livewire\WithPagination;
 use App\Exports\AppUserExport;
-use App\Models\Owner;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -72,7 +73,7 @@ class Datatable extends Component
     {
       //  $this->authorize('export users');
 
-        return Excel::download(new AppUserExport, 'app-users.xlsx');
+        return Excel::download(new OwnerExport, 'owners.xlsx');
     }
 
     public function render()

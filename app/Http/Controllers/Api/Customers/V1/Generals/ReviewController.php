@@ -31,9 +31,12 @@ class ReviewController extends Controller
 
         Review::create($request->all());
 
-        $review = Review::where('real_estate_id',$request->real_estate_id)->avg('rate');
-        dd($review);
-       // RealEstate::whereId($request->real_estate_id)->
+        $review = Review::where('real_estate_id', $request->real_estate_id)->avg('rate');
+        // dd($review);
+        $rate = sprintf('%.2f', $review);
+
+        RealEstate::whereId($request->real_estate_id)->update(['rate' => $rate]);
+
         return $this->successStatus();
     }
 }

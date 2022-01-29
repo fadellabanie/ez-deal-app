@@ -21,12 +21,12 @@ class SuperAdmin extends Component
         $this->totalOrders = 1;
         $this->totalActiveRealEstates = RealEstate::active()->count();
         $this->totalNotActiveRealEstates = RealEstate::notActive()->count();
-        $this->realEstates = RealEstate::select(['id','en_name','address', 'lat','lng'])->get()
-        ->toArray();
+        $this->realEstates = RealEstate::select(['id', 'en_name', 'address', 'lat', 'lng'])->get()
+            ->toArray();
     }
     public function render()
     {
-        return view('livewire.dashboard.home.super-admin',[
+        return view('livewire.dashboard.home.super-admin', [
             'latestRealEstates' => RealEstate::with('realestateType')->latest()->take(10)->get(),
             'users' => User::latest()->take(10)->get(),
 

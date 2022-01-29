@@ -13,6 +13,7 @@ use App\Models\RealestatePrice;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\RealestateAttribute;
+use App\Models\Review;
 use Database\Factories\RealestateMediaFactory;
 use Database\Factories\RealestatePriceFactory;
 
@@ -25,6 +26,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Review::factory(10000)->create();
+       /*
         Video::factory(20)->create();
         Entertainment::factory(50)->create();
 
@@ -43,5 +46,6 @@ class DatabaseSeeder extends Seeder
                 ]);
             });
         });
+        */
     }
 }
