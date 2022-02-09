@@ -19,10 +19,13 @@ class RealEstateTinyResource extends JsonResource
             'id' => $this->id,
             'realestate_type' => $this->realestateType->name,
             'price' => $this->price,
+            'lat' => $this->lat,
+            'lng' => $this->lng,
             'address' => $this->address,
-            'name' => $this->name,
-            'description' => $this->description,  
-            'rate' => $this->rate,
+            'space' => $this->space,
+            'image' => asset($this->image),
+            'guest_type' => $this->guest_type,
+            'guest_count' => $this->guest_count,
             'image' => asset($this->image),
         ];
     }

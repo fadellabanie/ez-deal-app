@@ -127,8 +127,20 @@
         <!--end::Container-->
 
     </div>
+
+
+    <div class="post d-flex flex-column-fluid mb-5" id="kt_post">
+        <div id="kt_content_container" class="container">
+            <div class="row gy-5 g-xl-8">
+                <div class="row g-5 g-xl-8">
+                    <div class="card-body" id="map"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--end::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post">
+    <div class="post d-flex flex-column-fluid mt-5" id="kt_post">
         <div id="kt_content_container" class="container">
             <div class="row g-5 g-xl-8">
                 <div class="col-xl-8">
@@ -251,15 +263,6 @@
         </div>
     </div>
 
-    <div class="post d-flex flex-column-fluid" id="kt_post">
-        <div id="kt_content_container" class="container">
-            <div class="row gy-5 g-xl-8">
-                <div class="row g-5 g-xl-8">
-                    <div class="card-body" id="map"> </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 </div>

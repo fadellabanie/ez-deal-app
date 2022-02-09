@@ -116,7 +116,14 @@ class InsertDataToPermissions extends Migration
         Permission::create(['name' => 'access static page']);
         Permission::create(['name' => 'create static page']);
         Permission::create(['name' => 'edit static page']);
-        Permission::create(['name' => 'delete static page']);
+        Permission::create(['name' => 'delete static page']); 
+        
+        ## others
+        ## entertainments
+        Permission::create(['name' => 'access entertainments']);
+        Permission::create(['name' => 'create entertainments']);
+        Permission::create(['name' => 'edit entertainments']);
+        Permission::create(['name' => 'delete entertainments']);
     }
 
     /**

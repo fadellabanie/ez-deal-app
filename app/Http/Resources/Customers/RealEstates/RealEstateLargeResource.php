@@ -2,15 +2,13 @@
 
 namespace App\Http\Resources\Customers\RealEstates;
 
-<<<<<<< HEAD
-use App\Models\RealEstate;
-use App\Models\Reservations;
-=======
->>>>>>> f0d038a8f56c12edb8370f835c9eb9c3e9bca8e3
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Constants\ImageResource;
 use App\Http\Resources\Constants\PricesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Constants\AttributesResource;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class RealEstateLargeResource extends JsonResource
 {
@@ -22,12 +20,15 @@ class RealEstateLargeResource extends JsonResource
      */
     public function toArray($request)
     {
-      
+        $is_favorites = DB::table('favorites')
+            ->where('real_estate_id', $this->id)
+            ->where('customrt_id', Auth::id())->first();
+
         return [
             'id' => $this->id,
             'name' => $this->name,
             'country' => $this->country->name,
-            'city' => $this->city?->name ,
+            'city' => $this->city?->name,
             'realestate_type_id' => $this->realestateType->name,
             'price' => $this->price,
             'space' => $this->space,
@@ -40,6 +41,7 @@ class RealEstateLargeResource extends JsonResource
             'leave_time' => $this->leave_time,
             'enter_time' => $this->enter_time,
             'number_of_views' => $this->number_of_views,
+            'is_favorites' => (bool) $is_favorites,
             'status' => $this->status,
             'living_room' => $this->liveing_room,
             'bed_room' => $this->bed_room,
@@ -56,10 +58,6 @@ class RealEstateLargeResource extends JsonResource
             'lat' => $this->lat,
             'lng' => $this->lng,
             'number_of_views' => $this->number_of_views,
-<<<<<<< HEAD
-            'reservations_days' => $this->reservations,
-=======
->>>>>>> f0d038a8f56c12edb8370f835c9eb9c3e9bca8e3
             'created_at' => $this->created_at->format('Y-m-d'),
             'images' => ImageResource::collection($this->medias),
             'attributes' => AttributesResource::collection($this->attributes),

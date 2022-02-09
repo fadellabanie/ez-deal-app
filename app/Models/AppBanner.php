@@ -55,11 +55,11 @@ class AppBanner extends Model
     }
     public function scopeWeb($query)
     {
-        return $query->where('location', 'mobile');
+        return $query->where('location', 'web');
     }
     public function scopeMobile($query)
     {
-        return $query->where('location', 'web');
+        return $query->where('location', 'mobile');
     }
     #################
     ### Relations ###

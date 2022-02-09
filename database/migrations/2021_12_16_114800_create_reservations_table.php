@@ -16,8 +16,8 @@ class CreateReservationsTable extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('realestate_id');
-            $table->timestamps('from');
-            $table->timestamps('to');
+            $table->dateTime('from');
+            $table->dateTime('to');
             $table->integer('diff_in_days');
             $table->string('status');
             $table->timestamps();
