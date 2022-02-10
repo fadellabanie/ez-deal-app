@@ -38,7 +38,7 @@ class AuthController extends Controller
     {
         $verificationCode = 4444;
         //$verificationCode = mt_rand(1000, 9999);
-       // Verify::where('mobile',$mobile)->delete();
+        // Verify::where('mobile',$mobile)->delete();
 
         Verify::create([
             'user_id' => $user_id,
@@ -71,7 +71,7 @@ class AuthController extends Controller
         return $this->successStatus(__("send code to your number"));
     }
 
-      /**
+    /**
      * Check Captains 
      * @param  VerifyRequest $request
      * @return mixed
@@ -81,28 +81,11 @@ class AuthController extends Controller
         $owner = Owner::whereMobile($request->mobile)->first();
 
         //check if passenger has verification code
-        $verify = Verify::whereMobile($request->mobile)->where('user_type', 'owner')->latest()->first();
+        Verify::whereMobile($request->mobile)->where('user_type', 'owner')->delete();
 
-        if (empty($verify->verification_code)) {
-            return $this->errorStatus(__('Verification code is missing'));
-        }
+        $this->sendCode($request->mobile, $owner->id, 'register');
 
-        if ($verify->verification_code != $request->verification_code) {
-            return $this->errorStatus(__('Verification code is wrong'));
-        }
-
-        if (Carbon::parse($verify->verification_expiry_minutes)->lte(Carbon::now())) {
-            return $this->errorStatus(__('Verification code is expired'));
-        }
-        $verify->delete();
-
-        // if ($request->type == 'change-password') {
-        //     return $this->successStatus(__('Verification code is valid'));
-        // }
-
-        $owner->update(['verified_at' => now()]);
-
-        return $this->respondWithItem(new OwnerResource($owner));
+        return $this->successStatus(__("send code to your number"));
     }
     /**
      * Login
@@ -119,7 +102,7 @@ class AuthController extends Controller
         }
 
         if (!$owner->verified_at) {
-            return $this->errorStatus(__('not verified'));
+            return $this->respondWithItemName('active',false,__('not verified'));
         }
         $token = $owner->createToken('Token-Login')->accessToken;
 

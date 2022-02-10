@@ -21,6 +21,7 @@ class OwnerResource extends JsonResource
         $total_reserved_realestate = RealEstate::reserved()->count();
         $total_not_reserved_realestate = RealEstate::notReserved()->count();
         return [
+            'active' => true,
             'id' => $this->id,
             'username' => $this->first_name,
             'mobile' => $this->mobile,
