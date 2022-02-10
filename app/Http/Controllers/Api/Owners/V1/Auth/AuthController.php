@@ -38,6 +38,8 @@ class AuthController extends Controller
     {
         $verificationCode = 4444;
         //$verificationCode = mt_rand(1000, 9999);
+       // Verify::where('mobile',$mobile)->delete();
+
         Verify::create([
             'user_id' => $user_id,
             'mobile' => $mobile,
@@ -61,6 +63,20 @@ class AuthController extends Controller
      * @return mixed
      */
     public function check(VerifyRequest $request)
+    {
+        $owner = Owner::whereMobile($request->mobile)->first();
+
+        $this->sendCode($request->mobile, $owner->id, 'register');
+
+        return $this->successStatus(__("send code to your number"));
+    }
+
+      /**
+     * Check Captains 
+     * @param  VerifyRequest $request
+     * @return mixed
+     */
+    public function resend(Request $request)
     {
         $owner = Owner::whereMobile($request->mobile)->first();
 
@@ -129,7 +145,7 @@ class AuthController extends Controller
     public function verifyChangePassword(ChangePasswordRequest $request)
     {
         $owner = Owner::where('mobile', $request->mobile)->first();
-        
+
         $this->sendCode($request->mobile, $owner->id, 'change-password');
 
         return $this->successStatus(__('Send SMS Successfully Please Check Your Phone'));

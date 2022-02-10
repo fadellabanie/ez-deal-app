@@ -31,6 +31,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('verify', [AuthController::class, 'check']);
 Route::post('verify-change-password', [AuthController::class, 'verifyChangePassword']);
 Route::post('change-password', [AuthController::class, 'changePassword']);
+Route::post('resend', [AuthController::class, 'resend']);
 
 Route::group(['middleware' => 'auth:owner'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
