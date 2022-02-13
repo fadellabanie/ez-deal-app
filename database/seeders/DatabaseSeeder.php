@@ -7,6 +7,7 @@ use App\Models\Owner;
 use App\Models\Video;
 use App\Models\Attribute;
 use App\Models\Entertainment;
+use App\Models\Neighborhood;
 use App\Models\RealEstate;
 use App\Models\RealestateMedia;
 use App\Models\RealestatePrice;
@@ -26,8 +27,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Review::factory(10000)->create();
-       /*
+        Neighborhood::factory(10)->create();
+        Review::factory(10)->create();
+       
         Video::factory(20)->create();
         Entertainment::factory(50)->create();
 
@@ -46,6 +48,6 @@ class DatabaseSeeder extends Seeder
                 ]);
             });
         });
-        */
+        
     }
 }
