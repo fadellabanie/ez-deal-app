@@ -72,6 +72,7 @@ class ConstantController extends Controller
      */
     public function getNeighborhood(Request $request)
     {
+    
         $data = Neighborhood::where('city_id',$request->city_id)->get();
      
         return $this->respondWithCollection(NeighborhoodResource::collection($data));
